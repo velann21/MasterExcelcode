@@ -1,0 +1,66 @@
+	public HashMap fromExcelRangeData12(String filePath, String sheetName, int startRow
+				) throws Exception {
+			HashMap<String,ArrayList> hp = hp=new HashMap();;
+			ArrayList list =null;
+			File file = new File(filePath);
+			FileInputStream fis = new FileInputStream(file);
+			create = WorkbookFactory.create(fis);
+			sheet = create.getSheet(sheetName);
+			String cellvalues = "";
+			String key = null;
+			for (int columnRead = 0; columnRead <= sheet.getRow(0).getLastCellNum(); columnRead++) {
+				//System.out.println(sheet.getRow(startRead).getCell(0).toString());
+				
+				list= new ArrayList();;
+				                     
+				for (int startRead = 1; startRead < sheet.getLastRowNum(); startRead++) {
+					
+					
+					try{
+						key=sheet.getRow(0).getCell(columnRead).toString();
+					 cellvalues=sheet.getRow(startRead).getCell(columnRead).toString();
+					System.out.println(cellvalues);
+					list.add(cellvalues);
+					}
+					catch(Exception e)
+					{
+						
+					}
+					 /*string = sheet.getRow(0).getCell(columnRead).toString();
+					 System.out.println(string);
+					 if(sheet.getRow(0).getCell(columnRead).toString().equals(string))
+					try {
+						cellvalues = sheet.getRow(startRead).getCell(columnRead).toString();
+						System.out.println(cellvalues);
+						list.add(cellvalues);
+						//break;
+					} catch (Exception e) {
+						
+					}*/
+
+				}
+				hp.put(key, list);
+				}
+				//}
+			
+			return hp;
+
+		}
+
+		static GetData g1=new GetData();
+		public String valueExtracter(String filepath,String sheetName,int startRow,String key) throws Exception {
+		HashMap<String , ArrayList> fromExcelRangeData12=g1.fromExcelRangeData12(filepath,sheetName,startRow);
+		ArrayList list=fromExcelRangeData12.get(key);
+		String value = (String)list.get(1);
+		return value;
+		//HashMap<String , ArrayList> fromExcelRangeData12 = g1.fromExcelRangeData12("D:\\BookMyShow\\bookmyShow\\resources\\external_data\\Velan.xls", "InputSheet",2);
+		
+		}
+		
+		public static void main(String[] args) throws Exception {
+			
+		String value1= g1.valueExtracter("D:\\BookMyShow\\bookmyShow\\resources\\external_data\\Velan.xls", "InputSheet",2,"TestId");	
+		System.out.println(value1);
+		
+		}
+	
